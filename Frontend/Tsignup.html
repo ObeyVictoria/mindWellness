@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="images/MindWellness.png" />
     <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>SignUp</title>
 </head>
 <body>
@@ -43,26 +45,22 @@
         <!-- Main -->
         <main class="main-signupTherapist">
             <section class="signupTherapist-Section1">
-                <h2 class="signupTherapist-h2">Create an account! Dear Therapist</h2>
+                <h2 class="signupTherapist-h2">Create an account!</h2>
                 <hr class="signupTherapist-hr">
-                <p class="signupTherapist-p">Looking for a way to access exclusive content and unlock special features?
-                    Look no further than our sign-up page! By creating an account,
-                    you'll gain access to a world of personalized experiences tailored just for you.
-                    Our simple and secure sign-up process takes just a few minutes, and you'll be up 
-                    and running in no time. Plus, as a member, you'll be the first to hear about our 
-                    latest updates and exciting new features.
-                    Don't miss out on this opportunity to join our community of like-minded individuals.
-                    Sign up today and start enjoying all the benefits of membership! </p>
+                <p class="signupTherapist-"> Dear Therapist</p>
             </section>
             <section class="signupTherapist-Section2">
                 <div class="box">
-                    <form method="post" action="#">
+                    <form id="formRegister">
                         <div class="signupTherapist-input-div">
                             <div>
                                 <input title="First Name" type="text" name="First Name" placeholder="First Name" id="input-field1" class="input-field"value="" required>
                             </div>
                             <div>
                                 <input title="Last Name" type="text" name="Last Name" placeholder="Last Name" id="input-field2" class="input-field" value="" required>
+                            </div>
+                            <div>
+                                <input title="Calenderly Link" type="text" name="Calenderly Link" placeholder="Link to Calenderly" id="link" class="input-field" value="" required>
                             </div>
                             <div>
                                 <input title="Email" type="email" name="Email" placeholder="Email" id="input-field3" class="input-field" value="" required>
@@ -317,7 +315,13 @@
                                 </select>
                             </div>
                             <div>
-                                <input title="Therapist Name" type="text" name="Therapist Name" placeholder="Therapist Name" id="input-field4" class="input-field" value="" required>
+                                <label for="Gender">Gender:</label>
+                                <select title="Gender" id="gender" name="Gender" class="form-control" required>
+                                    <option value=""></option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+
+                                </select>
                             </div>
                             <div>
                                 <input title="Password" type="password" name="password" placeholder="Password" id="input-field5" class="input-field" value="" required>
@@ -348,8 +352,12 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="Experience">Tell us about your experience:</label>
-                                <textarea title="Experience" id="Experience" class="input-field" value="" required></textarea>
+                                <label for="Experience">Experience:</label>
+                                <textarea title="Experience" id="Experience1" class="input-field" value="" required placeholder="Your place of work or place you worked"></textarea>
+                            </div>
+                            <div>
+                                <label for="Experience">Experience 2:</label>
+                                <textarea title="Experience" id="Experience2" class="input-field" value="" placeholder="More of your experience as a therapist"></textarea>
                             </div>
                             <div class="signUpBtn-Therapist-Div">
                                 <button type="submit" id="signUpBtn">Sign Up</button>
@@ -374,6 +382,76 @@
 			</footer>
 
     <!-- Scripts -->
+    <script>
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        
+        const form = document.getElementById('formRegister');
+        if(form){
+          form.addEventListener("submit",(e)=>{
+            e.preventDefault();
+        register()
+         
+          })
+          }
+        
+         function register(){
+          const fName =  document.getElementById('input-field1').value
+          const lName =   document.getElementById('input-field2').value
+            const gender = document.getElementById('gender').value
+            const country = document.getElementById('country').value
+            const exp1 = document.getElementById('Experience1').value
+            const cLink = document.getElementById('link').value
+            const exp2 = document.getElementById('Experience2').value
+            const eYear = document.getElementById('experience').value
+            const email = document.getElementById('input-field3').value
+            const password = document.getElementById('input-field5').value
+           
+        axios.post('http://127.0.0.1:4000/registerTheraph',{
+            fName: fName,
+            lName: lName,
+            gender: gender,
+            country: country,
+            exp1: exp1,
+            cLink: cLink,
+            exp2: exp2,
+            eYear: eYear,
+            email: email,
+            password: password
+        }).then(res=>{
+          console.log(res)
+        if(res.data[0].message == "email used")
+        {
+          Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'User aleady taken',
+        })
+        }else if(res.data[0].message == "data created"){
+          Swal.fire(
+              'Account Created !',
+              'Thanks for joining us.',
+              'success'
+            ).then(rs=>{
+               window.location = '/login'
+            })
+           
+        }
+        
+        
+        
+        }).catch(err=>{
+          console.log(err)
+        })
+        
+        
+        }
+        </script>
  <script src="assets/js/jquery.min.js"></script>
  <script src="assets/js/jquery.dropotron.min.js"></script>
  <script src="assets/js/jquery.scrollex.min.js"></script>

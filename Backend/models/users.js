@@ -19,6 +19,10 @@ const Users = sequelize.define("user",{
     userType:{
         type:Sequelize.STRING,
         allowNull:false   
+    },
+    firstName:{
+        type:Sequelize.STRING,
+        allowNull:false   
     }
 })
 module.exports = {Users}

@@ -24,6 +24,7 @@ const clRegister = async(req, res) =>{
     password: bcrypt.hashSync(req.body.password, saltRounds)}
     const cusLogin = {
         email: req.body.email,
+        firstName: req.body.fName,
         password: bcrypt.hashSync(req.body.password, saltRounds),
         userType: "Client"}
     
@@ -68,10 +69,12 @@ const thpRegister = async(req, res) =>{
     calendLink:req.body.cLink,
     exp2: req.body.exp2,
     expYear: req.body.eYear,
+    country: req.body.country,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, saltRounds)}
     const thpLogin = {
         email: req.body.email,
+        firstName: req.body.fName,
         password: bcrypt.hashSync(req.body.password, saltRounds),
         userType: "Therapist"}
     

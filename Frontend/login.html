@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg+xml" href="images/MindWellness.png" />
     <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Login</title>
 </head>
 <body>
@@ -22,7 +24,7 @@
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
                         <li><a href="services.html">Services</a></li>
-                        <li><a href="login.html">Login</a></li>
+                        <li><a href="/login">Login</a></li>
                         <li>
                             <a href="#">Features</a>
                             <ul>
@@ -35,7 +37,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="signup_main.html" class="button">Sign Up</a></li>
+                <li><a href="/" class="button">Sign Up</a></li>
              </ul>
             </nav>
         </header>
@@ -49,10 +51,10 @@
             </section>
             <section class="main-login-section2">
                 <div class="box">
-                    <form method="post" action="#">
+                    <form id="formlogin">
                         <div class="input-icons">
                             <i class="fa fa-user icon"></i>
-                            <input type="text" name="Username" placeholder="Username" id="login-input1" class="login-input" value="" required>
+                            <input type="email" name="email" placeholder="email" id="login-input1" class="login-input" value="" required>
                         </div>
                         <div class="input-icons">
                             <!-- <i class="fa fa-eye" aria-hidden="true"></i> -->
@@ -62,7 +64,7 @@
                         <div class="loginBtnDiv">
                             <button type="submit" id="loginBtn">Login</button>
                         </div>
-                        <p id="login-p">Don't have an account yet?<a href="signup_main.html">Create an account now!</a></p>
+                        <p id="login-p">Don't have an account yet?<a href="/">Create an account now!</a></p>
                     </form>
                 </div>
             </section>
@@ -83,6 +85,50 @@
 			</footer>
 
     <!-- Scripts -->
+    <script>
+        const form = document.getElementById('formlogin');
+        if(form){
+          form.addEventListener("submit",(e)=>{
+           
+            e.preventDefault();
+          login()
+         
+          })
+          }
+        
+        
+          function login(){
+          const email =   document.getElementById('login-input1').value
+            const password = document.getElementById('login-input2').value
+           
+        axios.post('http://127.0.0.1:4000/Auth',{
+            email: email,
+            password: password
+        }).then(res=>{
+          console.log(res)
+        if(res.data[0].message == "invalid")
+        {
+          Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Invalid username or password',
+        })
+        }else{
+          console.log(res.data[0].message)
+          localStorage.setItem("token",res.data[0].message)
+          window.location = '/dashboard'
+           
+        }
+        
+        
+        
+        }).catch(err=>{
+          console.log(err)
+        })
+        
+        
+        }
+        </script>
  <script src="assets/js/jquery.min.js"></script>
  <script src="assets/js/jquery.dropotron.min.js"></script>
  <script src="assets/js/jquery.scrollex.min.js"></script>

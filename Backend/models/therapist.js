@@ -32,6 +32,10 @@ const Therapist = sequelize.define("therapist",{
         type:Sequelize.STRING,
         allowNull:true
     },
+    country:{
+        type:Sequelize.STRING,
+        allowNull:true
+    },
     email:{
         type:Sequelize.STRING,
         allowNull:false,
