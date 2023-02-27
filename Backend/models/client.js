@@ -16,6 +16,10 @@ const Client = sequelize.define("client",{
         type:Sequelize.STRING,
         allowNull:false
     },
+    country:{
+        type:Sequelize.STRING,
+        allowNull:false
+    },
     email:{
         type:Sequelize.STRING,
         allowNull:false,

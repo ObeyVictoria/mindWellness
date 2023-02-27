@@ -19,6 +19,7 @@ let therapis = []
 const clRegister = async(req, res) =>{
     const cus = {firstName: req.body.fName,
     lastName: req.body.lName,
+    country:req.body.country,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, saltRounds)}
     const cusLogin = {

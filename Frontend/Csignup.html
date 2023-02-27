@@ -7,6 +7,9 @@
     <title>SignUp</title>
     <link rel="icon" type="image/svg+xml" href="images/MindWellness.png" />
     <link rel="stylesheet" href="assets/css/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body class="is-preload">
     <div id="page-wrapper">
@@ -55,7 +58,7 @@
             </section>
             <section class="signupClient-Section2">
                 <div class="box">
-                    <form method="post" action="#">
+                    <form id="formRegister">
                         <div class="signupClient-input-div">
                             <div>
                                 <input type="text" name="First Name" placeholder="First Name" id="input-field1" class="input-field" value="" required>
@@ -316,9 +319,6 @@
                                 </select>
                             </div>
                             <div>
-                                <input type="text" name="Username" placeholder="Username" id="input-field4" class="input-field" value="" required>
-                            </div>
-                            <div>
                                 <input type="password" name="password" placeholder="Password" id="input-field5" class="input-field" value="" required>
                             </div>
                             <div class="signUpBtn-Client-Div">
@@ -344,6 +344,64 @@
 
     </div> 
     <!-- Scripts -->
+    <script>
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        
+        
+        const form = document.getElementById('formRegister');
+        if(form){
+          form.addEventListener("submit",(e)=>{
+            e.preventDefault();
+        register()
+         
+          })
+          }
+        
+         function register(){
+          const fName =  document.getElementById('input-field1').value
+          const lName =   document.getElementById('input-field2').value
+          const country = document.getElementById('country').value
+            const email = document.getElementById('input-field3').value
+            const password = document.getElementById('input-field5').value
+           
+        axios.post('http://127.0.0.1:4000/registerClient',{
+            fName: fName,
+            lName: lName,
+            email: email,
+            country: country,
+            password: password
+        }).then(res=>{
+          console.log(res)
+        if(res.data[0].message == "email used")
+        {
+          Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'User aleady taken',
+        })
+        }else if(res.data[0].message == "data created"){
+          Swal.fire(
+              'Account Created !',
+              'Thanks for joining us.',
+              'success'
+            ).then(rs=>{
+               window.location = '/login'
+            })
+           
+        }
+        }).catch(err=>{
+          console.log(err)
+        })
+        
+        
+        }
+        </script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.dropotron.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
