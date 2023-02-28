@@ -7,6 +7,18 @@ const port = 3001;
 app.use(express.static('public'));
 
 router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+});
+router.get('/about',function(req,res){
+  res.sendFile(path.join(__dirname+'/about.html'));
+});
+router.get('/contact',function(req,res){
+  res.sendFile(path.join(__dirname+'/contact.html'));
+});
+router.get('/services',function(req,res){
+  res.sendFile(path.join(__dirname+'/services.html'));
+});
+router.get('/signup',function(req,res){
     res.sendFile(path.join(__dirname+'/main.html'));
   });
 router.get('/Csignup',function(req,res){
