@@ -138,16 +138,16 @@ const login = async(req,res)=>{
     //USERS DASHBOARD
     const dashboard = async(req,res)=>{
         email = req.decoded.email
-        gName = req.decoded.firstName
+
         Users.findAll({
             where: {
                 email: email
             }
         }).then(rs =>{
             console.log(rs)
-                res.status(200).json([{email: email, greetName: gName}])
-        }).catch(error => {
-            console.log(error)
+                res.status(200).json([{rs}])
+        }).catch(err => {
+            console.log(err)
         })
     }
     //SHOW THERAPIST
@@ -166,7 +166,7 @@ const login = async(req,res)=>{
                     Therap.calendLink = result.calendLink
                     therapis.push(Therap)
                 })
-                res.status(200).json([{allTherapist:therapis}])}
+                res.status(200).json([{result}])}
             }).catch(error => {
                 console.log(error)
         })

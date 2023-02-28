@@ -24,11 +24,13 @@
   }
 })
 
-const r =()=>{ authAxios.post(`${url}/dashboard`).then(rs=>{
+ authAxios.post(`${url}/dashboard`).then(rs=>{
     console.log(rs.data)
     document.getElementById('username').innerHTML=rs.data[0].greetName
 
-})}
+}).catch(error=>{
+  response.status(404).send
+})
     </script>
 </body>
 </html>
