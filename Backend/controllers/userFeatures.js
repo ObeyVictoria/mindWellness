@@ -138,15 +138,14 @@ const login = async(req,res)=>{
     //USERS DASHBOARD
     const dashboard = async(req,res)=>{
         email = req.decoded.email
+        gName = req.decoded.firstName
         Users.findAll({
             where: {
                 email: email
             }
-        }).then(results =>{
-            if(results){
-                gName = results.firstName
+        }).then(rs =>{
+            console.log(rs)
                 res.status(200).json([{email: email, greetName: gName}])
-            }
         }).catch(error => {
             console.log(error)
         })

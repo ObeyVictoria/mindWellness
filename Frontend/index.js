@@ -22,7 +22,7 @@ router.get('/dashboard',function(req,res){
     res.sendFile(path.join(__dirname+'/dashboard.html'));
   });
 router.get('/allTheraph',function(req,res){
-    res.sendFile(path.join(__dirname+'/allTheraph.html'));
+    res.sendFile(path.join(__dirname+'/allTherapist.html'));
   });
 app.use('/', router);
 
