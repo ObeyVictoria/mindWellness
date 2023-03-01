@@ -13,24 +13,21 @@
     <h1 id="username"></h1>
     <a href="/allTheraph">get therapist</a>
     <script>
-        const url = 'http://localhost:4000'
- const assesstoken = localStorage.getItem("token")
-
-
-  const authAxios = axios.create({
+ const url = 'http://127.0.0.1:4000'
+const assesstoken = localStorage.getItem("token")
+const authAxios = axios.create({
   baseUrl: url,
   headers:{
     Authorization:`Bearer ${assesstoken}`
   }
 })
 
- authAxios.post(`${url}/dashboard`).then(rs=>{
-    console.log(rs.data)
-    document.getElementById('username').innerHTML=rs.data[0].greetName
-
-}).catch(error=>{
-  response.status(404).send
-})
+authAxios.post(`${url}/dashboard`).then(rs=>{
+   console.log("backend")
+  console.log(rs.data) 
+  console.log(rs.data[0].fname) 
+  document.getElementById('username').innerHTML = rs.data[0].fname
+ })
     </script>
 </body>
 </html>
