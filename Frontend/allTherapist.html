@@ -8,11 +8,10 @@
     <title>Document</title>
 </head>
 <body>
-   <h1>Name of Therapist would appear here</h1> 
-   <a href="http://">Calenderly link would appear here</a>
-   <a href="http://">link to each therapist profile would appear here and there would be option to chat</a>
+   <div id="allTheraph"></div>
    <script>
-    const url = 'http://127.0.0.1:4000'
+    //const url = 'https://tame-gold-hen-wear.cyclic.app'
+    const url = 'https://tame-gold-hen-wear.cyclic.app'
  const assesstoken = localStorage.getItem("token")
 
 
@@ -23,11 +22,22 @@
   }
 })
 
-const r =()=>{ authAxios.post(`${url}/allTheraph`).then(rs=>{
-    console.log(rs.data)
-    //document.getElementById('username').innerHTML=rs.data[0].greetName
-
-})}
+authAxios.get(`${url}/allTheraph`).then(rs=>{
+   console.log("backend") 
+   console.log(rs.data)  
+ if (rs.data[0].allTheraph !== null){
+  let rezult = rs.data[0].allTheraph.map(element =>{
+    return `<div>
+      <h6><pre style="font-size: large; font-weight: 900;">${element.lastName} ${element.firstName}</pre></h6>
+      <h6><pre style="font-size: large; font-weight: 700;">${element.gender} from ${element.country}</pre></h6>
+<button><a href="${element.calendLink}">Book a Session</a></button>
+<button><a href="/allTheraph">View Profile</a></button>
+</div>
+`
+  })
+  document.getElementById('allTheraph').innerHTML = rezult.join("")
+ }
+ })
    </script>
 </body>
 </html>
