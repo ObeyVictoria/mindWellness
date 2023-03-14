@@ -8,7 +8,6 @@ it is still in progress, not much features achieved yet.
 
 - Nodejs
 - Mysql
-- postman
 
 ### Deployment
 
