@@ -13,9 +13,13 @@ const therapistList = {
     lastName: null,
     gender: null,
     country: null,
-    calendLink: null
+    calendLink: null,
+    therapistId: null
 }
 let therapis = []
+
+// making the registration check for the client and user table email to ensure one email is not used two times
+// i have to use belongtomany
 
 //CLIENT REGISTRATION
 const clRegister = async(req, res) =>{
@@ -31,7 +35,7 @@ const clRegister = async(req, res) =>{
         userType: "Client"}
     
        
-  Client.findAll({
+  Users.findAll({
         where: {
             email: req.body.email
         }
@@ -42,13 +46,10 @@ const clRegister = async(req, res) =>{
         }
         else
         {
-            Client.create(cus).then(rs=>{
+            Users.create(cusLogin).then(rs=>{
                 Client.findAll({
-                    where: {
-                        email: req.body.email 
-                    }
                 }).then(rs=>{
-                    Users.create(cusLogin)
+                    Client.create(cus)
                 })
                 console.log(rs)
                 res.status(200).json([{ message: "data created" }])
@@ -81,7 +82,7 @@ const thpRegister = async(req, res) =>{
         userType: "Therapist"}
     
        
-  Therapist.findAll({
+  Users.findAll({
         where: {
             email: req.body.email
         }
@@ -92,13 +93,10 @@ const thpRegister = async(req, res) =>{
         }
         else
         {
-            Therapist.create(thp).then(rs=>{
+            Users.create(thpLogin).then(rs=>{
                 Therapist.findAll({
-                    where: {
-                        email: req.body.email 
-                    }
                 }).then(rs=>{
-                    Users.create(thpLogin)
+                    Therapist.create(thp)
                 })
                 console.log(rs)
                 res.status(200).json([{ message: "data created" }])
@@ -125,7 +123,8 @@ const login = async(req,res)=>{
           const validity  =  bcrypt.compareSync(password,rs.dataValues.password)
           if(validity == true){
               const token = jwt.sign(rs.dataValues,secret)
-              res.status(200).json([{ message: token}])
+              const type = rs.dataValues.userType
+              res.status(200).json([{ message: token, user: type}])
           }else{
               res.status(200).json([{ message: "invalid" }]) 
           }
@@ -154,20 +153,29 @@ const login = async(req,res)=>{
     }
     //SHOW THERAPIST
     const showTheraph = async(req,res)=>{
+        /*firstName = req.decoded.firstName
+        lastName = req.decoded.lastName
+        gender = req.decoded.gender
+        country = req.decoded.country
+        calendLink = req.decoded.calendLink
+        therapistId = req.decoded.therapistId*/
         
         Therapist.findAll({
             order: [["expYear", "ASC"]]
         }).then(results => {
+            let therapis=[]
             if (typeof results === undefined) {
                 console.log(results + 'is null')
             }else {
-                results.map(result => {
+                results.map(result => 
+                    {
                     let Therap = Object.create(therapistList)
                     Therap.firstName = result.firstName
                     Therap.lastName = result.lastName
                     Therap.gender = result.gender
                     Therap.country = result.country
                     Therap.calendLink = result.calendLink
+                    Therap.therapistId = result.therapistId
                     therapis.push(Therap)
                 })
                 res.status(200).json([{allTheraph:therapis}])}
@@ -175,5 +183,24 @@ const login = async(req,res)=>{
                 console.log(error)
         })
     }
+
+    //SHOW PROFILE OF A THERAPIST
+    const profile = (req,res)=>{
+        id = req.body.therapistId
+        //res.status(200).json([{ message: req.decoded }])
+        Therapist.findAll({
+            where: {
+                therapistId: id
+            }
+        }).then(rsw =>{
+            res.status(200).json([{fname:req.decoded.firstName,user:req.decoded.userType,lName: req.decoded.lastName,gender: req.decoded.gender,exp1: req.decoded.exp1,calendLink:req.decoded.calendLink,
+                exp2: req.decoded.exp2,
+                expYear: req.decoded.eYear,
+                country:req.decoded.country}])
+
+            }).catch(err=>{
+                   console.log(err)
+        }) 
+    }
     
-module.exports = {clRegister,thpRegister,login,dashboard,showTheraph}
+module.exports = {clRegister,thpRegister,login,dashboard,showTheraph,profile}

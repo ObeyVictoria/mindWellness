@@ -18,6 +18,9 @@ router.get('/contact',function(req,res){
 router.get('/services',function(req,res){
   res.sendFile(path.join(__dirname+'/services.html'));
 });
+router.get('/blog',function(req,res){
+  res.sendFile(path.join(__dirname+'/mindblog.html'));
+});
 router.get('/signup',function(req,res){
     res.sendFile(path.join(__dirname+'/main.html'));
   });
@@ -30,11 +33,17 @@ router.get('/Tsignup',function(req,res){
 router.get('/login',function(req,res){
     res.sendFile(path.join(__dirname+'/login.html'));
   });
-router.get('/dashboard',function(req,res){
-    res.sendFile(path.join(__dirname+'/dashboard.html'));
+router.get('/Cdashboard',function(req,res){
+    res.sendFile(path.join(__dirname+'/Cdashboard.html'));
+  });
+  router.get('/Tdashboard',function(req,res){
+    res.sendFile(path.join(__dirname+'/Tdashboard.html'));
   });
 router.get('/allTheraph',function(req,res){
     res.sendFile(path.join(__dirname+'/allTherapist.html'));
+  });
+  router.get('/profile',function(req,res){
+    res.sendFile(path.join(__dirname+'/profile.html'));
   });
 app.use('/', router);
 

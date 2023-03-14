@@ -14,7 +14,7 @@
     <div id="page-wrapper">
         <!-- Header -->
         <header id="header">
-            <h1><a href="/">Mind-Wellness</a></h1>
+            <img src="images/MindWellness.png" width="56px" alt="">
             <nav id="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
@@ -25,6 +25,7 @@
                         <li><a href="/contact">Contact</a></li>
                         <li><a href="/services">Services</a></li>
                         <li><a href="/login">Login</a></li>
+                        <li><a href="/blog">MindBlog</a></li>
                         <li>
                             <a href="#">Features</a>
                             <ul>
@@ -60,7 +61,7 @@
                                 <input title="Last Name" type="text" name="Last Name" placeholder="Last Name" id="input-field2" class="input-field" value="" required>
                             </div>
                             <div>
-                                <input title="Calenderly Link" type="text" name="Calenderly Link" placeholder="Link to Calenderly" id="link" class="input-field" value="" required>
+                                <input title="Calenderly Link" type="text" name="Calenderly Link" placeholder="Calendly Link" id="link" class="input-field" value="" required>
                             </div>
                             <div>
                                 <input title="Email" type="email" name="Email" placeholder="Email" id="input-field3" class="input-field" value="" required>
@@ -352,12 +353,10 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="Experience">Experience:</label>
-                                <textarea title="Experience" id="Experience1" class="input-field" value="" required placeholder="Your place of work or place you worked"></textarea>
+                                <input title="Experience" id="Experience1" class="input-field" value="" required placeholder="Your place of work or place you worked"></input>
                             </div>
-                            <div>
-                                <label for="Experience">Experience 2:</label>
-                                <textarea title="Experience" id="Experience2" class="input-field" value="" placeholder="More of your experience as a therapist"></textarea>
+                        <div>
+                                <input title="Experience" id="Experience2" class="input-field" value="" placeholder="More of your experience as a therapist"></input>
                             </div>
                             <div class="signUpBtn-Therapist-Div">
                                 <button type="submit" id="signUpBtn">Sign Up</button>
@@ -411,8 +410,8 @@
             const eYear = document.getElementById('experience').value
             const email = document.getElementById('input-field3').value
             const password = document.getElementById('input-field5').value
-           
-        axios.post('https://tame-gold-hen-wear.cyclic.app/registerTheraph',{
+            axios.post('http://127.0.0.1:4000/registerTheraph',{    
+        //axios.post('https://tame-gold-hen-wear.cyclic.app/registerTheraph',{
             fName: fName,
             lName: lName,
             gender: gender,
@@ -459,6 +458,7 @@
  <script src="assets/js/breakpoints.min.js"></script>
  <script src="assets/js/util.js"></script>
  <script src="assets/js/main.js"></script>
+ <script src="assests/js/toggle.js"></script>
 </body>
  
 </html>

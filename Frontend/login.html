@@ -14,22 +14,23 @@
     <div id="page-wrapper">
         <!-- Header -->
         <header id="header">
-            <h1><a href="index.html">Mind-Wellness</a></h1>
+            <img src="images/MindWellness.png" width="56px" alt="">
             <nav id="nav">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li>
                     <a href="#" class="icon solid fa-angle-down">Layouts</a>
                     <ul>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="services.html">Services</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="/services">Services</a></li>
                         <li><a href="/login">Login</a></li>
+                        <li><a href="/blog">MindBlog</a></li>
                         <li>
                             <a href="#">Features</a>
                             <ul>
-                                <li><a href="#">MindBot</a></li>
-                                <li><a href="#">Therapist</a></li>
+                                <li><a href="https://mind-bot.vercel.app/">MindBot</a></li>
+                                <li><a href="/Csignup">Therapist</a></li>
                                 <li><a href="#">Support Group</a></li>
                                 <li><a href="#">Tracker</a></li>
                                 <li><a href="#">Resources</a></li>
@@ -57,8 +58,8 @@
                             <input type="email" name="email" placeholder="email" id="login-input1" class="login-input" value="" required>
                         </div>
                         <div class="input-icons">
-                            <!-- <i class="fa fa-eye" aria-hidden="true"></i> -->
-                            <i class="fa fa-eye-slash icon" aria-hidden="true"></i>
+                            <!-- <i class="fa fa-eye-slash" aria-hidden="true"></i> -->
+                            <i class="fa fa-eye icon" aria-hidden="true"></i>
                             <input type="password" name="password" placeholder="Password" id="login-input2" class="login-input" value="" required>
                         </div>
                         <div class="loginBtnDiv">
@@ -83,6 +84,7 @@
 					<li>&copy; Techsol 2023. All rights reserved.</li>
 				</ul>
 			</footer>
+            <script src="assests/js/toggle.js"></script>
 
     <!-- Scripts -->
     <script>
@@ -100,8 +102,9 @@
           function login(){
           const email =   document.getElementById('login-input1').value
             const password = document.getElementById('login-input2').value
-           
-        axios.post('https://tame-gold-hen-wear.cyclic.app/Auth',{
+
+        axios.post('http://127.0.0.1:4000/Auth',{   
+        //axios.post('https://tame-gold-hen-wear.cyclic.app/Auth',{
             email: email,
             password: password
         }).then(res=>{
@@ -115,8 +118,14 @@
         })
         }else{
           console.log(res.data[0].message)
+          console.log(res.data[0].user) 
           localStorage.setItem("token",res.data[0].message)
-          window.location = '/dashboard'
+          if(res.data[0].user == "Client"){
+            window.location = '/Cdashboard'
+          }
+          else{
+            window.location = '/Tdashboard'
+          }
            
         }
         
@@ -136,5 +145,6 @@
  <script src="assets/js/breakpoints.min.js"></script>
  <script src="assets/js/util.js"></script>
  <script src="assets/js/main.js"></script>
+ <script src="assests/js/toggle.js"></script>
 </body>
 </html>

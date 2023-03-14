@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="assets/css/main.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <title>Document</title>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Dashboard</title>
 </head>
 <style>
   body {
@@ -49,38 +51,27 @@
     </nav>
   </header>
   <main>
-    <div id="allTheraph"></div>
+    <h1><span style="font-size: large; font-weight: 900;">Welcome</span> <span id="username" style="font-size: large; font-weight: 500; padding: 5px;"></span> </h1>
+      <a href="/allTheraph">get therapist</a>
   </main>
-   <script>
-    const url = 'http://localhost:4000'
-    //const url = 'https://tame-gold-hen-wear.cyclic.app'
- const assesstoken = localStorage.getItem("token")
-
-
-  const authAxios = axios.create({
+    <script>
+ const url = 'http://localhost:4000'
+ //const url = 'https://tame-gold-hen-wear.cyclic.app'
+const assesstoken = localStorage.getItem("token")
+const authAxios = axios.create({
   baseUrl: url,
   headers:{
     Authorization:`Bearer ${assesstoken}`
   }
-  })
+})
 
-
-authAxios.get(`${url}/allTheraph`).then(rs=>{
-   console.log("backend") 
-   console.log(rs.data)  
- if (rs.data[0].allTheraph !== null){
-  let rezult = rs.data[0].allTheraph.map(element =>{
-    return `<div>
-      <h6><pre style="font-size: large; font-weight: 900;">${element.lastName} ${element.firstName}</pre></h6>
-      <h6><pre style="font-size: large; font-weight: 700;">${element.gender} from ${element.country}</pre></h6>
-<button><a href="${element.calendLink}" target="_blank">Book a Session</a></button>
-<form id="profileForm"><button type="submit" value="${element.therapistId}"></button><form>
-</div>
-`
-  })
-  document.getElementById('allTheraph').innerHTML = rezult.join("")
- }
+authAxios.post(`${url}/dashboard`).then(rs=>{
+   console.log("backend")
+  console.log(rs.data) 
+  console.log(rs.data[0].fname) 
+  document.getElementById('username').innerHTML = rs.data[0].fname
+  //document.getElementById('username').innerHTML = rs.data[0].fname
  })
-   </script>
+    </script>
 </body>
 </html>

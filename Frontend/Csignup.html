@@ -15,7 +15,7 @@
     <div id="page-wrapper">
         <!-- Header -->
         <header id="header">
-            <h1><a href="/">Mind-Wellness</a></h1>
+            <img src="images/MindWellness.png" width="56px" alt="">
             <nav id="nav">
                 <ul>
                     <li><a href="/">Home</a></li>
@@ -26,6 +26,7 @@
                         <li><a href="/contact">Contact</a></li>
                         <li><a href="/services">Services</a></li>
                         <li><a href="/login">Login</a></li>
+                        <li><a href="/blog">MindBlog</a></li>
                         <li>
                             <a href="#">Features</a>
                             <ul>
@@ -369,8 +370,8 @@
           const country = document.getElementById('country').value
             const email = document.getElementById('input-field3').value
             const password = document.getElementById('input-field5').value
-           
-        axios.post('https://tame-gold-hen-wear.cyclic.app/registerClient',{
+            axios.post('http://127.0.0.1:4000/registerClient',{    
+        //axios.post('https://tame-gold-hen-wear.cyclic.app/registerClient',{
             fName: fName,
             lName: lName,
             email: email,
@@ -409,5 +410,6 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+            <script src="assests/js/toggle.js"></script>
 </body>
 </html>

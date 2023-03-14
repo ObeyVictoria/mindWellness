@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="assets/css/main.css" />
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <title>Document</title>
+  </head>
+  <style>
+    body {
+      background-image: url("images/MindWellness.png");
+      background-size: contain;
+      background-attachment: fixed;
+    }
+    main {
+      margin-top: 90px;
+    }
+  </style>
+
+  <body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<a href="/" style="text-decoration: none;"><img src="images/MindWellness.png" width="46px" alt=""> </a>
+					<nav id="nav">
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li>
+								<a href="#" class="icon solid fa-angle-down">Layouts</a>
+								<ul>
+									<li><a href="/about">About</a></li>
+									<li><a href="/contact">Contact</a></li>
+									<li><a href="/services">Services</a></li>
+									<li><a href="/login">Login</a></li>
+									<li><a href="/mindblog">MindBlog</a></li>
+									<li>
+										<a href="#">Features</a>
+										<ul>
+											<li><a href="https://mind-bot.vercel.app/">MindBot</a></li>
+											<li><a href="/Csignup">Therapist</a></li>
+											<li><a href="#">Support Group</a></li>
+											<li><a href="#">Tracker</a></li>
+											<li><a href="#">Resources</a></li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li><a href="/signup" class="button">Sign Up</a></li>
+						</ul>
+					</nav>
+				</header>
+      <!-- Main -->
+				<section id="main" class="container">
+					<header>
+						<h1><span style="font-size: large; font-weight: 900;">Welcome</span> <span id="username" style="font-size: large; font-weight: 500; padding: 5px;"></span> </h1>
+						<a href="https://wellnessvideo.onrender.com" target="_blank"><button type="button">start video call</button></a>
+          </header>
+        </section>
+
+    </div>  
+      <script>
+      const url = 'http://localhost:4000'
+      //const url = 'https://tame-gold-hen-wear.cyclic.app'
+      const assesstoken = localStorage.getItem("token")
+      const authAxios = axios.create({
+      baseUrl: url,
+      headers:{
+      Authorization:`Bearer ${assesstoken}`
+      }
+      })
+
+      authAxios.post(`${url}/dashboard`).then(rs=>{
+      console.log("backend")
+      console.log(rs.data) 
+      console.log(rs.data[0].fname) 
+      document.getElementById('username').innerHTML = rs.data[0].fname
+      })
+      </script>
+  </body>
+</html>
